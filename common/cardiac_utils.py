@@ -76,7 +76,7 @@ def approximate_contour(contour, factor=4, smooth=0.05, periodic=False):
 def sa_pass_quality_control(seg_sa_name):
     """ Quality control for short-axis image segmentation """
     nim = nib.load(seg_sa_name)
-    seg_sa = nim.get_data()
+    seg_sa = nim.get_fdata()
     X, Y, Z = seg_sa.shape[:3]
 
     # Label class in the segmentation
@@ -138,7 +138,7 @@ def sa_pass_quality_control(seg_sa_name):
 def la_pass_quality_control(seg_la_name):
     """ Quality control for long-axis image segmentation """
     nim = nib.load(seg_la_name)
-    seg = nim.get_data()
+    seg = nim.get_fdata()
     X, Y, Z = seg.shape[:3]
     seg_z = seg[:, :, 0]
 
@@ -360,7 +360,7 @@ def evaluate_wall_thickness(seg_name, output_name_stem, part=None):
     nim = nib.load(seg_name)
     Z = nim.header['dim'][3]
     affine = nim.affine
-    seg = nim.get_data()
+    seg = nim.get_fdata()
 
     # Label class in the segmentation
     label = {'BG': 0, 'LV': 1, 'Myo': 2, 'RV': 3}
@@ -556,7 +556,7 @@ def extract_myocardial_contour(seg_name, contour_name_stem, part=None, three_sli
     nim = nib.load(seg_name)
     X, Y, Z = nim.header['dim'][1:4]
     affine = nim.affine
-    seg = nim.get_data()
+    seg = nim.get_fdata()
 
     # Label class in the segmentation
     label = {'BG': 0, 'LV': 1, 'Myo': 2, 'RV': 3}
